@@ -80,7 +80,8 @@ func InsertUser(c *gin.Context) {
 	username := c.PostForm("username")
 	password := hash(c.PostForm("password"))
 	birthday := c.PostForm("birthday")
-	user := database.NewUser(username, password, birthday)
+	cellphone := c.PostForm("cellphone")
+	user := database.NewUser(username, password, birthday, cellphone)
 	err := database.Insert(user)
 	if err != nil {
 		c.JSON(500, gin.H{

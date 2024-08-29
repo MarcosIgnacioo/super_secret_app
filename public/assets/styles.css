@@ -34,4 +34,9 @@ form button{
   color: #28282B;
   font-weight: bold;
   margin-top: 15px;
+  cursor:pointer;
+}
+a {
+  color: #fffafa;
+  font-size: 24px;
 }

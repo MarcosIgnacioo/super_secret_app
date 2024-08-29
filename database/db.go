@@ -6,14 +6,15 @@ import (
 )
 
 type User struct {
-	ID       int    `json:"id"`
-	Name     string `json:"name"`
-	Password string `json:"password"`
-	Birthday string `json:"birthday"`
+	ID        int    `json:"id"`
+	Name      string `json:"name"`
+	Password  string `json:"password"`
+	Birthday  string `json:"birthday"`
+	Cellphone string `json:"cellphone"`
 }
 
-func NewUser(name string, password string, birthday string) *User {
-	return &User{Name: name, Password: password, Birthday: birthday}
+func NewUser(name string, password string, birthday string, cellphone string) *User {
+	return &User{Name: name, Password: password, Birthday: birthday, Cellphone: cellphone}
 }
 
 var db *sql.DB
@@ -28,7 +29,8 @@ func Init() {
 		id INTEGER PRIMARY KEY,
 		name VARCHAR(64) NULL,
 		password VARCHAR(64) NULL,
-		birthday DATE NULL)`)
+		birthday DATE NULL,
+		cellphone VARCHAR(64) NULL)`)
 
 	if err != nil {
 		log.Println("Error in creating table")
@@ -43,18 +45,18 @@ func End() {
 }
 
 func Insert(user *User) error {
-	statement, err := db.Prepare("INSERT INTO users (name, password, birthday) VALUES (?, ?, ?)")
+	statement, err := db.Prepare("INSERT INTO users (name, password, birthday, cellphone) VALUES (?, ?, ?, ?)")
 	if err != nil {
 		return err
 	}
 	// dereferencia solito lol
-	statement.Exec(user.Name, user.Password, user.Birthday)
+	statement.Exec(user.Name, user.Password, user.Birthday, user.Cellphone)
 	log.Println("Inserted the person into database!")
 	return nil
 }
 
 func SelectLastUser() (*User, error) {
-	rows, err := db.Query("SELECT id, name, password, birthday FROM users")
+	rows, err := db.Query("SELECT id, name, password, birthday, cellphone FROM users")
 	if err != nil {
 		return nil, err
 	}
@@ -62,7 +64,7 @@ func SelectLastUser() (*User, error) {
 	var user User
 
 	for rows.Next() {
-		rows.Scan(&user.ID, &user.Name, &user.Password, &user.Birthday)
+		rows.Scan(&user.ID, &user.Name, &user.Password, &user.Birthday, &user.Cellphone)
 	}
 
 	return &user, nil
