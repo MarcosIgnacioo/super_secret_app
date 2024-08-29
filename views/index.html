@@ -8,14 +8,13 @@
 <script src="https://unpkg.com/htmx.org@2.0.2" integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ" crossorigin="anonymous"></script>
   </head>
   <body>
-    <div id="content">
-      <h1 hx-get="/api/last-user"></h1>
-      <h2>htmx powerhouse</h2>
+      <h1>Ingresa tus datos para dejar el lol</h1>
+    <div id="content" >
     </div>
     <form hx-post="/api/user" hx-target="#content">
-      <input type="text" name="username" value="">
-      <input type="date" name="birthday" value="">
-      <input type="password" name="password" value="">
+      <input type="text" name="username" value="" required>
+      <input type="date" name="birthday" value="" required>
+      <input type="password" name="password" value="" required>
       <button type="submit">submit wep</button>
     </form>
   </body>

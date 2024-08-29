@@ -9,19 +9,29 @@ body {
   color: #fffafa;
   display:  flex;
   flex-direction: column;
+  justify-content:center;
+  align-items: center;
 }
 
-body form {
+form {
   display:  flex;
   flex-direction: column;
+  width: 50%;
+}
+
+form * {
+  font-size: 24px;
 }
 
 form input {
   border: none;
+  margin-top: 15px;
 }
 
 form button{
   border: none;
   background-color: #fffafa;
   color: #28282B;
+  font-weight: bold;
+  margin-top: 15px;
 }

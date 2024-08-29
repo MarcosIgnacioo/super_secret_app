@@ -79,10 +79,7 @@ func InsertUser(c *gin.Context) {
 			"ocurrio un error al ingresar a la base de datos": err,
 		})
 	}
-	c.HTML(http.StatusOK, `
-    <h1>felicidades dejaste el lol:</h1>
-    <h2>{{ .Name }}</h2>
-`, user)
+	c.HTML(http.StatusOK, "user.html", user)
 }
 
 func ViewLastUser(c *gin.Context) {
@@ -91,14 +88,5 @@ func ViewLastUser(c *gin.Context) {
 		c.JSON(http.StatusNotFound, err)
 		return
 	}
-	if user.Name == "" {
-		c.HTML(http.StatusOK, `
-    <h1>aun no hay usuarios que hayan dejado el lol:(</h1>
-`, "")
-		return
-	}
-	c.HTML(http.StatusOK, `
-    <h1>felicidades dejaste el lol:</h1>
-    <h2>{{ .Name }}</h2>
-`, user)
+	c.HTML(http.StatusOK, "user.html", user)
 }
