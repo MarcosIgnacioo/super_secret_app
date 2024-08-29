@@ -3,9 +3,11 @@ package apis
 import (
 	"database/sql"
 	"log"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/mattn/go-sqlite3"
+	"github.com/super_secret_app/database"
 )
 
 func GenericHandler(c *gin.Context) {
@@ -64,4 +66,26 @@ func SQL(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"esto": user.Name,
 	})
+}
+
+func InsertUser(c *gin.Context) {
+	username := c.PostForm("username")
+	password := c.PostForm("password")
+	birthday := c.PostForm("birthday")
+	user := database.NewUser(username, password, birthday)
+	err := database.Insert(user)
+	if err != nil {
+		c.JSON(500, gin.H{
+			"ocurrio un error al ingresar a la base de datos": err,
+		})
+	}
+	c.JSON(http.StatusOK, user)
+}
+
+func ViewLastUser(c *gin.Context) {
+	user, err := database.SelectLastUser()
+	if err != nil {
+		c.JSON(http.StatusNotFound, err)
+	}
+	c.JSON(http.StatusOK, user)
 }
