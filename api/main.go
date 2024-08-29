@@ -1,7 +1,9 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
+	"fmt"
+	"net/http"
+
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -12,14 +14,8 @@ type User struct {
 	Birthday string `json:"birthday"`
 }
 
-func Hello() {
-	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "wep",
-		})
-	})
-	r.Run() // listen and serve on 0.0.0.0:8080
+func Hello(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello World!")
 }
 
 // func main() {
