@@ -8,9 +8,11 @@
 <script src="https://unpkg.com/htmx.org@2.0.2" integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ" crossorigin="anonymous"></script>
   </head>
   <body>
-    <h1 hx-get="/api/last-user"></h1>
-    <h2>htmx powerhouse</h2>
-    <form hx-post="/api/user">
+    <div id="content">
+      <h1 hx-get="/api/last-user"></h1>
+      <h2>htmx powerhouse</h2>
+    </div>
+    <form hx-post="/api/user" hx-target="#content">
       <input type="text" name="username" value="">
       <input type="date" name="birthday" value="">
       <input type="password" name="password" value="">
