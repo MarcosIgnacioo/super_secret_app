@@ -22,12 +22,6 @@ func main() {
 		c.HTML(http.StatusOK, "index.html", nil)
 	})
 
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
-
 	r.GET("/hello", apis.GenericHandler)
 	r.GET("/api/last-user", apis.ViewLastUser)
 	r.POST("/api/user", apis.InsertUser)

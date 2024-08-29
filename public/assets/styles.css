@@ -24,11 +24,13 @@ form * {
 }
 
 form input {
+  border-radius: 5px;
   border: none;
   margin-top: 15px;
 }
 
 form button{
+  border-radius: 5px;
   border: none;
   background-color: #fffafa;
   color: #28282B;
@@ -36,7 +38,15 @@ form button{
   margin-top: 15px;
   cursor:pointer;
 }
+
 a {
   color: #fffafa;
   font-size: 24px;
+}
+
+.error {
+  border-radius: 5px;
+  padding: 15px;
+  background-color: #8a143f;
+  color: #fffafa;
 }

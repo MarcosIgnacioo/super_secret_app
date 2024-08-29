@@ -16,7 +16,6 @@
     <div id="content"></div>
     <form hx-post="/api/user" hx-target="#content">
       <label for="username">username:</label>
-      <!-- Validación con pattern para solo letras, números, guiones bajos o puntos -->
       <input
         type="text"
         name="username"
@@ -26,28 +25,25 @@
       />
 
       <label for="birthday">cumpleaños:</label>
-      <!-- Validación para que no se pueda seleccionar una fecha futura -->
       <input
         type="date"
-        min="1900-01-01"
         name="birthday"
-        max="<?= date('Y-m-d') ?>"
+        max="2024-08-30"
+        min="1900-01-01"
         required
       />
 
       <label for="cellphone">telefono:</label>
-      <!-- Validación para teléfono con mínimo de 10 caracteres numéricos -->
       <input
         type="tel"
         id="cellphone"
         name="cellphone"
-        pattern="[0-9]{10,}"
         title="Debe tener al menos 10 dígitos"
         required
+        pattern="[0-9]{10,}"
       />
 
       <label for="password">contraseña:</label>
-      <!-- Validación para contraseña con un mínimo de 8 caracteres -->
       <input
         type="password"
         name="password"
