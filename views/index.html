@@ -5,41 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title></title>
     <link rel="stylesheet" href="./public/assets/styles.css" />
-<script src="https://unpkg.com/htmx.org@2.0.2" integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ" crossorigin="anonymous"></script>
+    <script
+      src="https://unpkg.com/htmx.org@2.0.2"
+      integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
-      <h1>Ingresa tus datos para dejar el lol</h1>
-    <div id="content" >
-    </div>
+    <h1>Ingresa tus datos para dejar el lol</h1>
+    <div id="content"></div>
     <form hx-post="/api/user" hx-target="#content">
       <label for="username">username:</label>
-      <input type="text" name="username" value="" required>
+      <!-- Validación con pattern para solo letras, números, guiones bajos o puntos -->
+      <input
+        type="text"
+        name="username"
+        pattern="[a-zA-Z0-9._]+"
+        title="Solo letras, números, guiones bajos o puntos"
+        required
+      />
+
       <label for="birthday">cumpleaños:</label>
-      <input type="date" name="birthday" value="" required>
+      <!-- Validación para que no se pueda seleccionar una fecha futura -->
+      <input
+        type="date"
+        min="1900-01-01"
+        name="birthday"
+        max="<?= date('Y-m-d') ?>"
+        required
+      />
+
       <label for="cellphone">telefono:</label>
-      <input type="tel" id ="cellphone" name="cellphone" value="" required>
+      <!-- Validación para teléfono con mínimo de 10 caracteres numéricos -->
+      <input
+        type="tel"
+        id="cellphone"
+        name="cellphone"
+        pattern="[0-9]{10,}"
+        title="Debe tener al menos 10 dígitos"
+        required
+      />
+
       <label for="password">contraseña:</label>
-      <input type="password" name="password" value="" required>
+      <!-- Validación para contraseña con un mínimo de 8 caracteres -->
+      <input
+        type="password"
+        name="password"
+        minlength="8"
+        title="Debe tener al menos 8 caracteres"
+        required
+      />
+
       <button type="submit">Dejar el lol</button>
     </form>
+
     <a href="/api/last-user">ver el ultimo usuario que dejo el lol!!</a>
   </body>
   <script>
-    document.querySelector("#cellphone").addEventListener("keydown" ,(e) => {
-    if (
-          [46, 8, 9, 27, 13].indexOf(e.keyCode) !== -1 ||
-          (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
-          (e.keyCode >= 35 && e.keyCode <= 40)
-        ) {
-          return
-        }
+    document.querySelector("#cellphone").addEventListener("keydown", (e) => {
+      if (
+        [46, 8, 9, 27, 13].indexOf(e.keyCode) !== -1 ||
+        (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+        (e.keyCode >= 35 && e.keyCode <= 40)
+      ) {
+        return;
+      }
 
-        if (
-          (e.shiftKey || e.keyCode < 48 || e.keyCode > 57) &&
-          (e.keyCode < 96 || e.keyCode > 105)
-        ) {
-          e.preventDefault()
-        }
-      })
+      if (
+        (e.shiftKey || e.keyCode < 48 || e.keyCode > 57) &&
+        (e.keyCode < 96 || e.keyCode > 105)
+      ) {
+        e.preventDefault();
+      }
+    });
   </script>
 </html>
