@@ -29,7 +29,7 @@ func main() {
 	})
 
 	r.GET("/hello", apis.GenericHandler)
-	r.GET("/db", apis.ViewLastUser)
+	r.GET("/api/last-user", apis.ViewLastUser)
 	r.POST("/api/user", apis.InsertUser)
 	r.Run() // listen and serve on 0.0.0.0:8080
 }
