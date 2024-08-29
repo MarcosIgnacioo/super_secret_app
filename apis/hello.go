@@ -1,7 +1,9 @@
 package apis
 
 import (
+	"crypto/sha1"
 	"database/sql"
+	"encoding/hex"
 	"log"
 	"net/http"
 
@@ -68,9 +70,15 @@ func SQL(c *gin.Context) {
 	})
 }
 
+func hash(str string) string {
+	h := sha1.New()
+	h.Write([]byte(str))
+	return hex.EncodeToString(h.Sum(nil))
+}
+
 func InsertUser(c *gin.Context) {
 	username := c.PostForm("username")
-	password := c.PostForm("password")
+	password := hash(c.PostForm("password"))
 	birthday := c.PostForm("birthday")
 	user := database.NewUser(username, password, birthday)
 	err := database.Insert(user)
@@ -88,5 +96,5 @@ func ViewLastUser(c *gin.Context) {
 		c.JSON(http.StatusNotFound, err)
 		return
 	}
-	c.HTML(http.StatusOK, "user.html", user)
+	c.HTML(http.StatusOK, "view_user.html", user)
 }
